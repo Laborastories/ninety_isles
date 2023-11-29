@@ -2,7 +2,7 @@ import sys
 import cv2
 from PIL import Image
 import numpy as np
-import st7735
+import ST7735
 import time
 
 
@@ -17,9 +17,9 @@ else:
     sys.exit(0)
 
 # Create TFT LCD display class.
-disp = st7735.ST7735(
+disp = ST7735.ST7735(
     port=0,
-    cs=st7735.BG_SPI_CS_FRONT,  # BG_SPI_CS_BACK or BG_SPI_CS_FRONT. BG_SPI_CS_FRONT (eg: CE1) for Enviro Plus
+    cs=ST7735.BG_SPI_CS_FRONT,  # BG_SPI_CS_BACK or BG_SPI_CS_FRONT. BG_SPI_CS_FRONT (eg: CE1) for Enviro Plus
     dc=9,  # "GPIO9" / "PIN21". "PIN21" for a Pi 5 with Enviro Plus
     backlight=35,  # "PIN18" for back BG slot, "PIN19" for front BG slot. "PIN32" for a Pi 5 with Enviro Plus
     rotation=90,
@@ -43,7 +43,7 @@ while True:
 
         # Display the frame
         # cv2.imshow("Frame", cv_image)
-        disp.display(image.resize((width, height)))
+        disp.display(cv_image)
         if cv2.waitKey(10) & 0xFF == ord("q"):
             break
 
@@ -54,5 +54,3 @@ while True:
     except EOFError:
         # Restart the GIF from the beginning
         image.seek(0)
-
-cv2.destroyAllWindows()
